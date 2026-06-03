@@ -6,9 +6,17 @@ import Results from "./components/Results"
 import Loading from "./components/Loading"
 import "./assets/base.css"
 
+interface WeatherResults {
+  country: string
+  cityName: string
+  temperature: string
+  conditionText: string
+  icon: string
+}
+
 function App() {
-  const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState({
+  const [loading, setLoading] = useState<boolean>(false)
+  const [results, setResults] = useState<WeatherResults>({
     country: "",
     cityName: "",
     temperature: "",
@@ -16,7 +24,7 @@ function App() {
     icon: ""
   })
 
-  const getWeather = (city) => {
+  const getWeather = (city: string) => {
     setLoading(true)
     axios.get(`https://api.weatherapi.com/v1/current.json?key=f365d4c43c8c4188b6c133550261102&q=${city}&aqi=no`)
       .then(res => {
@@ -29,7 +37,7 @@ function App() {
         })
         setLoading(false)
       })
-      .catch(err => alert("エラーが発生しました。ページをリロードして、もう一度トライしてください。"))
+      .catch(() => alert("エラーが発生しました。ページをリロードして、もう一度トライしてください。"))
   }
 
   return (

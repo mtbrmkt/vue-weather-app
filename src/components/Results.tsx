@@ -1,4 +1,16 @@
-function Results({ results }) {
+interface WeatherResults {
+  country: string
+  cityName: string
+  temperature: string
+  conditionText: string
+  icon: string
+}
+
+interface ResultsProps {
+  results: WeatherResults
+}
+
+function Results({ results }: ResultsProps) {
   const { country, cityName, temperature, icon, conditionText } = results
 
   return (

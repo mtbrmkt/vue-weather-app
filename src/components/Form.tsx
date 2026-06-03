@@ -1,9 +1,13 @@
-import { useState } from "react"
+import { useState, FormEvent } from "react"
 
-function Form({ onSubmitForm }) {
-  const [city, setCity] = useState("")
+interface FormProps {
+  onSubmitForm: (city: string) => void
+}
 
-  const handleSubmit = (e) => {
+function Form({ onSubmitForm }: FormProps) {
+  const [city, setCity] = useState<string>("")
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSubmitForm(city)
     setCity("")
