@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import axios from "axios"
   import Title from "./components/Title.svelte"
   import Form from "./components/Form.svelte"
@@ -6,9 +6,17 @@
   import Loading from "./components/Loading.svelte"
   import "./assets/base.css"
 
-  let loading = $state(false)
+  interface WeatherResults {
+    country: string
+    cityName: string
+    temperature: string
+    conditionText: string
+    icon: string
+  }
 
-  let results = $state({
+  let loading = $state<boolean>(false)
+
+  let results = $state<WeatherResults>({
     country: "",
     cityName: "",
     temperature: "",
@@ -16,7 +24,7 @@
     icon: ""
   })
 
-  function getWeather(city) {
+  function getWeather(city: string): void {
     loading = true
     axios.get(`https://api.weatherapi.com/v1/current.json?key=f365d4c43c8c4188b6c133550261102&q=${city}&aqi=no`)
     .then(res => {

@@ -1,9 +1,14 @@
-<script>
-  let { onSubmitForm } = $props()
+<script lang="ts">
+  interface Props {
+    onSubmitForm: (city: string) => void
+  }
 
-  let city = $state("")
+  let { onSubmitForm }: Props = $props()
 
-  function submitForm() {
+  let city = $state<string>("")
+
+  function submitForm(e: SubmitEvent): void {
+    e.preventDefault()
     onSubmitForm(city)
     city = ""
   }

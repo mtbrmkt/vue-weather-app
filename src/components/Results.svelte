@@ -1,5 +1,17 @@
-<script>
-  export let results
+<script lang="ts">
+  interface WeatherResults {
+    country: string
+    cityName: string
+    temperature: string
+    conditionText: string
+    icon: string
+  }
+
+  interface Props {
+    results: WeatherResults
+  }
+
+  let { results }: Props = $props()
 </script>
 
 <h2>気象データ</h2>
