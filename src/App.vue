@@ -11,18 +11,26 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import { reactive, ref } from "vue"
-  import  axios from "axios"
-  import  Title from "./components/Title.vue"
-  import  Form from "./components/Form.vue"
-  import  Results from "./components/Results.vue"
-  import  Loading from "./components/Loading.vue"
+  import axios from "axios"
+  import Title from "./components/Title.vue"
+  import Form from "./components/Form.vue"
+  import Results from "./components/Results.vue"
+  import Loading from "./components/Loading.vue"
   import "./assets/base.css"
 
-  const loading = ref(false)
+  interface WeatherResults {
+    country: string
+    cityName: string
+    temperature: string
+    conditionText: string
+    icon: string
+  }
 
-  const results = reactive({
+  const loading = ref<boolean>(false)
+
+  const results = reactive<WeatherResults>({
     country: "",
     cityName: "",
     temperature: "",
@@ -30,20 +38,18 @@
     icon: ""
   })
 
-  const getWeather = (city) => {
+  const getWeather = (city: string): void => {
     loading.value = true
     axios.get(`https://api.weatherapi.com/v1/current.json?key=f365d4c43c8c4188b6c133550261102&q=${city}&aqi=no`)
     .then(res => {
-      results.country = res.data.location.country,
-      results.cityName = res.data.location.name,
-      results.temperature = res.data.current.temp_c,
-      results.conditionText = res.data.current.condition.text,
+      results.country = res.data.location.country
+      results.cityName = res.data.location.name
+      results.temperature = res.data.current.temp_c
+      results.conditionText = res.data.current.condition.text
       results.icon = res.data.current.condition.icon
       loading.value = false
-
-
     })
-    .catch(err => alert("エラーが発生しました。ページをリロードして、もう一度トライしてください。"))
+    .catch(() => alert("エラーが発生しました。ページをリロードして、もう一度トライしてください。"))
   }
 </script>
 

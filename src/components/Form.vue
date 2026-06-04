@@ -7,19 +7,18 @@
     </form>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
 
-const city = ref("")
+const city = ref<string>("")
 
-const submitForm = () => {
+const emits = defineEmits<{
+  "submit-form": [city: string]
+}>()
+
+const submitForm = (): void => {
     emits("submit-form", city.value)
     city.value = ""
 }
-
-const emits = defineEmits(["submit-form"])
-
-
-
 </script>
 

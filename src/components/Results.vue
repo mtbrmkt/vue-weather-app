@@ -11,12 +11,22 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from "vue"
 
-const props = defineProps({
-    results: Object
-})
+interface WeatherResults {
+  country: string
+  cityName: string
+  temperature: string
+  conditionText: string
+  icon: string
+}
+
+interface Props {
+  results: WeatherResults
+}
+
+const props = defineProps<Props>()
 
 const { country, cityName, temperature, icon, conditionText } = toRefs(props.results)
 </script>
