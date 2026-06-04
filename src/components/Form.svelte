@@ -1,16 +1,15 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
+  let { onSubmitForm } = $props()
 
-  let city = ""
-  const dispatch = createEventDispatcher()
+  let city = $state("")
 
   function submitForm() {
-    dispatch('submit-form', city)
+    onSubmitForm(city)
     city = ""
   }
 </script>
 
-<form on:submit|preventDefault={submitForm}>
+<form onsubmit={submitForm}>
   <input type="text" bind:value={city} placeholder="都市名を英語で入力">
   <button type="submit">Get Weather</button>
 </form>
